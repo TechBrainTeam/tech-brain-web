@@ -1,1 +1,29 @@
 @import 'tailwindcss';
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.animate-enter {
+  animation: toast-in 300ms ease forwards;
+}
+.animate-leave {
+  animation: toast-out 300ms ease forwards;
+}
