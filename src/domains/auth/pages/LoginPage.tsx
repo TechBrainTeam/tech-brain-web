@@ -59,7 +59,7 @@ export const LoginPage = () => {
 
           <p className="mt-6 text-center text-gray-600">
             Hesabın Yok Mu?{' '}
-            <a href="/login" className="text-black font-medium hover:underline">
+            <a href="/register" className="text-black font-medium hover:underline">
               Hesap Oluştur
             </a>
           </p>
