@@ -31,7 +31,7 @@ export const LoginPage = () => {
     loginUser(values, {
       onSuccess: () => {
         showSuccessToast('Giriş başarılı');
-        navigate('/');
+        navigate('/user');
       },
       onError: (err: any) => {
         showErrorToast(err?.response?.data.message || 'Bir hata oluştu');

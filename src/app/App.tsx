@@ -1,9 +1,8 @@
-function App() {
-  return (
-    <div>
-      <h1 className="text-blue-500 font-bold">Fobini Yen</h1>
-    </div>
-  );
-}
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;

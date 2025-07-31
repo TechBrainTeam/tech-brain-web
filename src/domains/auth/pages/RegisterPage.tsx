@@ -49,7 +49,7 @@ export const RegisterPage = () => {
     registerUser(values, {
       onSuccess: () => {
         showSuccessToast('Kayıt başarılı!');
-        navigate('/login');
+        navigate('/user');
       },
       onError: (err: any) => {
         showErrorToast(err?.response?.data.message || 'Bir hata oluştu');
