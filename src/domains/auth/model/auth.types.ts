@@ -7,7 +7,12 @@ export interface RegisterRequest {
   lastName?: string;
 }
 
-export interface RegisterResponse {
+export interface LoginRequest {
+  emailOrUsername: string;
+  password: string;
+}
+
+export interface AuthResponse {
   success: boolean;
   data: {
     token: string;

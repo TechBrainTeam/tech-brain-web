@@ -51,8 +51,8 @@ export const RegisterPage = () => {
         showSuccessToast('Kayıt başarılı!');
         navigate('/login');
       },
-      onError: (err) => {
-        showErrorToast(err.message || 'Bir hata oluştu');
+      onError: (err: any) => {
+        showErrorToast(err?.response?.data.message || 'Bir hata oluştu');
       },
     });
   };

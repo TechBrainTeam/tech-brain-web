@@ -4,6 +4,7 @@ export const validationMessages = {
     email: 'E-posta adresi boş bırakılamaz.',
     password: 'Lütfen bir şifre girin.',
     confirmPassword: 'Şifre tekrar alanı boş bırakılamaz.',
+    emailOrUsername: 'Lütfen kullanıcı adınızı veya e-posta adresinizi girin.',
   },
   passwordRules: {
     minLength: 'Şifre en az 8 karakter olmalı',
