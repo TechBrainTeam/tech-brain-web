@@ -11,7 +11,7 @@ const PhobiaCard = ({ phobia, index }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/phobias/${phobia.id}`);
+    navigate(`/user/library/phobia/${phobia.id}`);
   };
 
   return (

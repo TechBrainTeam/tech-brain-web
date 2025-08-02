@@ -5,14 +5,27 @@ export interface Category {
   name: string;
 }
 
+export interface CopingStrategy {
+  id: string;
+  title: string;
+}
+
+export interface Therapy {
+  id: string;
+  name: string;
+  strategies: CopingStrategy[];
+}
+
 export interface Phobia {
   id: string;
   name: string;
   englishName: string;
-  description: string;
+  description?: string;
   categories: Category[];
-  percentage: number;
-  imageUrl: string;
+  percentage?: number;
+  imageUrl?: string;
+  commonSymptoms?: string[];
+  therapies: Therapy[];
   createdAt: string;
   updatedAt: string;
 }
@@ -26,6 +39,11 @@ export interface PhobiaData {
 export interface PhobiaListResponse {
   success: boolean;
   data: PhobiaData;
+}
+
+export interface PhobiaDetailsResponse {
+  success: boolean;
+  data: Phobia;
 }
 
 export interface PhobiaQueryParams {

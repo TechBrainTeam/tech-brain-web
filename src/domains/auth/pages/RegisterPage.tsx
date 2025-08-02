@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRegister } from '../hooks/useRegister';
 
 import { Shield } from 'lucide-react';
@@ -49,7 +49,7 @@ export const RegisterPage = () => {
     registerUser(values, {
       onSuccess: () => {
         showSuccessToast('Kayıt başarılı!');
-        navigate('/user');
+        navigate('/user/home');
       },
       onError: (err: any) => {
         showErrorToast(err?.response?.data.message || 'Bir hata oluştu');
@@ -117,9 +117,9 @@ export const RegisterPage = () => {
 
           <p className="mt-6 text-center text-gray-600">
             Zaten hesabın var mı?{' '}
-            <a href="/login" className="text-black font-medium hover:underline">
+            <Link to="/login" className="text-black font-medium hover:underline">
               Giriş Yap
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -5,6 +5,7 @@ import HomePage from '../domains/home/pages/HomePage';
 import UserLayout from './layout/user/UserLayout';
 import UserHomePage from '../domains/user/home/pages/HomePage';
 import PhobiasPage from '../domains/user/phobia/pages/PhobiasPage';
+import PhobiaDetailPage from '../domains/user/phobia/pages/PhobiaDetailPage';
 
 export const router = createBrowserRouter([
   {
@@ -23,8 +24,9 @@ export const router = createBrowserRouter([
     path: '/user',
     element: <UserLayout />,
     children: [
-      { index: true, path: 'home', element: <UserHomePage /> },
+      { path: 'home', element: <UserHomePage /> },
       { path: 'library', element: <PhobiasPage /> },
+      { path: 'library/phobia/:id', element: <PhobiaDetailPage /> },
     ],
   },
 ]);

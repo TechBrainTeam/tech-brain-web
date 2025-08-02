@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { LoginRequest } from '../model/auth.types';
 import { useLogin } from '../hooks/useLogin';
 import { showErrorToast, showSuccessToast } from '../../../shared/hooks/useToast';
@@ -31,7 +31,7 @@ export const LoginPage = () => {
     loginUser(values, {
       onSuccess: () => {
         showSuccessToast('Giriş başarılı');
-        navigate('/user');
+        navigate('/user/home');
       },
       onError: (err: any) => {
         showErrorToast(err?.response?.data.message || 'Bir hata oluştu');
@@ -59,9 +59,9 @@ export const LoginPage = () => {
 
           <p className="mt-6 text-center text-gray-600">
             Hesabın Yok Mu?{' '}
-            <a href="/register" className="text-black font-medium hover:underline">
+            <Link to="/register" className="text-black font-medium hover:underline">
               Hesap Oluştur
-            </a>
+            </Link>
           </p>
         </div>
       </div>
