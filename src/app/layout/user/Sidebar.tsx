@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 const navItems = [
-  { label: 'Ana Sayfa', icon: Home, path: '/user' },
+  { label: 'Ana Sayfa', icon: Home, path: '/user/home' },
   { label: 'Kütüphane', icon: BookOpen, path: '/user/library' },
   { label: 'Terapi', icon: Activity, path: '/user/therapy' },
   { label: 'Nefes', icon: Wind, path: '/user/breath' },
@@ -12,39 +12,44 @@ const navItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="fixed top-0 left-0 w-72 h-screen bg-white flex flex-col justify-between py-6 px-4 border-r shadow-lg z-50">
+    <aside className="fixed top-0 left-0 w-72 h-screen bg-white flex flex-col justify-between py-6 px-5 border-r shadow-xl z-50">
       <div>
-        <div className="px-2 mb-6 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-black" />
+        <div className="flex items-center gap-3 mb-6 px-2">
+          <div className="bg-indigo-100 text-indigo-600 p-2 rounded-xl">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
           <div>
-            <h1 className="text-lg font-semibold text-black">Fobi Uygulaması</h1>
+            <h1 className="text-xl font-semibold text-gray-800">Fobi Uygulaması</h1>
             <p className="text-sm text-gray-500">Korkularını yen</p>
           </div>
         </div>
-        <div className="flex items-center justify-between p-3 mb-8 bg-gray-100 rounded-xl">
+
+        <div className="flex items-center justify-between p-3 mb-8 bg-gray-100 rounded-xl shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-sm font-medium">
+            <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold">
               S
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-800">Günaydın!</p>
+              <p className="text-sm font-semibold text-gray-800">Günaydın!</p>
               <p className="text-xs text-gray-500 lowercase">s</p>
             </div>
           </div>
-          <Settings className="w-4 h-4 text-gray-400" />
+          <button className="hover:bg-gray-200 p-1.5 rounded-md transition">
+            <Settings className="w-4 h-4 text-gray-500" />
+          </button>
         </div>
 
-        <nav className="space-y-2">
+        <nav className="space-y-1">
           {navItems.map(({ label, icon: Icon, path }) => (
             <NavLink
               key={path}
               to={path}
               className={({ isActive }) =>
                 classNames(
-                  'flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                  'flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
                   {
-                    'bg-black text-white': isActive,
-                    'text-gray-700 hover:bg-gray-100': !isActive,
+                    'bg-indigo-600 text-white shadow-sm': isActive,
+                    'text-gray-700 hover:bg-gray-100 hover:text-indigo-600': !isActive,
                   }
                 )
               }
@@ -56,12 +61,12 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      <div className="mt-6 bg-indigo-50 p-4 rounded-xl text-sm text-center">
-        <div className="text-xl mb-2">✨</div>
-        <p className="text-gray-700 italic mb-2">
+      <div className="mt-6 bg-indigo-50 p-4 rounded-xl text-sm text-center shadow-sm">
+        <div className="text-2xl mb-2">✨</div>
+        <p className="text-gray-700 italic mb-2 leading-snug">
           “Cesaret, korkunun yokluğu değil, korkuya rağmen harekete geçmektir.”
         </p>
-        <button className="text-indigo-600 text-sm font-medium hover:underline">
+        <button className="text-indigo-600 text-sm font-semibold hover:underline transition">
           Günlük Motivasyon
         </button>
       </div>

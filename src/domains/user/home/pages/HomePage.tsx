@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Heart, ShieldCheck, BookOpen, Calendar, TrendingUp, Flame } from 'lucide-react';
+import { Heart, ShieldCheck, BookOpen } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import WeeklySummary from '../components/WeeklySummary';
 
 const moodOptions = [
   { emoji: '😊', label: 'İyi' },
@@ -58,23 +60,27 @@ const HomePage = () => {
             {
               icon: <Heart className="w-5 h-5 text-pink-500" />,
               title: 'Nefes Egzersizi Başlat',
+              link: '/user/library',
               desc: '5 dakikalık sakinlik seansı',
               gradient: 'from-pink-100 to-pink-50',
             },
             {
               icon: <ShieldCheck className="w-5 h-5 text-green-600" />,
               title: 'Terapi Seansına Devam Et',
+              link: '/user/library',
               desc: 'Seviye 2 – Toplum Önünde Konuşma',
               gradient: 'from-green-100 to-green-50',
             },
             {
               icon: <BookOpen className="w-5 h-5 text-purple-500" />,
               title: 'Fobileri Keşfet',
+              link: '/user/library',
               desc: 'Yaygın korkular hakkında öğren',
               gradient: 'from-purple-100 to-purple-50',
             },
           ].map((item, i) => (
-            <div
+            <Link
+              to={item.link}
               key={i}
               className={`bg-gradient-to-br ${item.gradient} p-6 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-1 cursor-pointer transition`}
             >
@@ -83,45 +89,11 @@ const HomePage = () => {
                 <h4 className="text-sm font-medium text-gray-800">{item.title}</h4>
               </div>
               <p className="text-xs text-gray-500">{item.desc}</p>
-            </div>
+            </Link>
           ))}
         </div>
 
-        <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-md border border-gray-200 mt-11">
-          <h2 className="text-lg font-semibold mb-6 text-gray-800">Bu Hafta</h2>
-          <div className="space-y-5">
-            <div className="flex items-center gap-3">
-              <div className="bg-gray-100 p-3 rounded-full">
-                <Calendar className="w-5 h-5 text-gray-700" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm text-gray-500">Toplam Seans</p>
-                <p className="text-xl font-bold text-gray-800">12</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="bg-green-100 p-3 rounded-full">
-                <TrendingUp className="w-5 h-5 text-green-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm text-gray-500">İlerleme</p>
-                <div className="w-full bg-gray-200 rounded-full h-3 mt-1">
-                  <div className="bg-green-500 h-3 rounded-full" style={{ width: '85%' }}></div>
-                </div>
-              </div>
-              <p className="text-sm font-semibold text-green-600">85%</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <Flame className="w-5 h-5 text-blue-600" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm text-gray-500">Günlük Seri</p>
-                <p className="text-xl font-bold text-blue-500">7</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <WeeklySummary />
       </div>
     </main>
   );
