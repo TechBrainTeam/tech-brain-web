@@ -144,9 +144,15 @@ const PhobiaDetailPage = () => {
 
         <button
           className="mt-10 w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-600 
-               bg-[length:200%_200%] animate-gradient 
-               hover:scale-[1.02] text-white py-3 sm:py-4 rounded-xl text-base sm:text-lg font-medium 
-               shadow-lg transition-all duration-300 cursor-pointer"
+       bg-[length:200%_200%] animate-gradient 
+       hover:scale-[1.02] text-white py-3 sm:py-4 rounded-xl text-base sm:text-lg font-medium 
+       shadow-lg transition-all duration-300 cursor-pointer"
+          onClick={() => {
+            const therapyId = phobia.therapies?.[0]?.id;
+            if (therapyId) {
+              navigate(`/user/therapy/${therapyId}`);
+            }
+          }}
         >
           Maruz Kalma Terapisini Başlat
         </button>

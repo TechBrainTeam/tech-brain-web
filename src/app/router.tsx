@@ -7,6 +7,7 @@ import UserHomePage from '../domains/user/home/pages/HomePage';
 import PhobiasPage from '../domains/user/phobia/pages/PhobiasPage';
 import PhobiaDetailPage from '../domains/user/phobia/pages/PhobiaDetailPage';
 import ChatPage from '../domains/user/chat/pages/ChatPage';
+import CopingStrategiesPage from '../domains/user/coping-strategy/pages/CopingStrategiesPage';
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: 'library', element: <PhobiasPage /> },
       { path: 'library/phobia/:id', element: <PhobiaDetailPage /> },
       { path: 'chat/:userPhobiaId', element: <ChatPage /> },
+      { path: 'therapy/:therapyId', element: <CopingStrategiesPage /> },
     ],
   },
 ]);
