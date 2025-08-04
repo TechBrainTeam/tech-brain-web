@@ -1,6 +1,8 @@
 import { Home, BookOpen, Activity, Wind, TrendingUp, Settings, ShieldCheck } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
+import { useUser } from '../../../shared/hooks/useUser';
+import { capitalize } from '../../../shared/utils/capitalize';
 
 const navItems = [
   { label: 'Ana Sayfa', icon: Home, path: '/user/home' },
@@ -11,6 +13,15 @@ const navItems = [
 ];
 
 const Sidebar = () => {
+  const user = useUser();
+
+  const fullName = [user?.firstName, user?.lastName]
+    .filter((v): v is string => typeof v === 'string' && v.length > 0)
+    .map(capitalize)
+    .join(' ');
+
+  const initials = (user?.firstName?.[0] ?? user?.username?.[0] ?? 'S').toUpperCase();
+
   return (
     <aside className="fixed top-0 left-0 w-72 h-screen bg-white flex flex-col justify-between py-6 px-5 border-r shadow-xl z-50">
       <div>
@@ -26,12 +37,16 @@ const Sidebar = () => {
 
         <div className="flex items-center justify-between p-3 mb-8 bg-gray-100 rounded-xl shadow-sm">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold">
-              S
+            <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold overflow-hidden">
+              {user?.profileImage ? (
+                <img src={user.profileImage} alt="Profil" className="w-full h-full object-cover" />
+              ) : (
+                initials
+              )}
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-800">Günaydın!</p>
-              <p className="text-xs text-gray-500 lowercase">s</p>
+              <p className="text-sm font-semibold text-gray-800">{user?.username}</p>
+              <p className="text-xs text-gray-500">{fullName}</p>
             </div>
           </div>
           <button className="hover:bg-gray-200 p-1.5 rounded-md transition">
