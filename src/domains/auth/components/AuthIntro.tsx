@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import { Brain, Heart, Sparkles, Shield } from 'lucide-react';
+import { Brain, Heart, Sparkles } from 'lucide-react';
 
 type Props = {
   icon: React.FC<{ size?: number; className?: string }>;
