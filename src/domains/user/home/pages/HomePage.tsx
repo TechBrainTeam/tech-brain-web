@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heart, ShieldCheck, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WeeklySummary from '../components/WeeklySummary';
@@ -14,8 +14,12 @@ const moodOptions = [
 const HomePage = () => {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   return (
-    <main className="min-h-screen px-12 py-6 space-y-8">
+    <main className="min-h-screen p-12 space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-1">Günaydın! 🌞</h1>
         <p className="text-gray-600 text-lg">Korkularınla yüzleşmeye hazır mısın?</p>

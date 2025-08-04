@@ -3,6 +3,8 @@ import { Users, BookOpen, Activity, ArrowLeft } from 'lucide-react';
 import FloatingChatButton from '../components/FloatingChatButton';
 import { useGetPhobiaDetails } from '../hooks/useGetPhobiaDetails';
 import PhobiaDetailSkeleton from '../components/PhobiaDetailsSkleton';
+import { useCreateUserPhobia } from '../hooks/useCreateUserPhobia';
+import { useEffect } from 'react';
 
 const PhobiaDetailPage = () => {
   const { id } = useParams();
@@ -10,7 +12,22 @@ const PhobiaDetailPage = () => {
 
   const { data, isLoading, isError, error } = useGetPhobiaDetails(id ?? '');
 
+  const { mutate, isPending } = useCreateUserPhobia();
+
   const phobia = data?.data;
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  const handleStartChat = () => {
+    if (!phobia?.id) return;
+    mutate(phobia.id, {
+      onSuccess: (data) => {
+        navigate(`/user/chat/${data.data.id}`);
+      },
+    });
+  };
 
   if (isLoading) {
     return <PhobiaDetailSkeleton />;
@@ -31,7 +48,7 @@ const PhobiaDetailPage = () => {
   }
 
   return (
-    <main className="min-h-screen px-4 sm:px-6 md:px-12">
+    <main className="min-h-screen p-4 sm:p-6 md:p-12">
       <section className="mx-auto bg-white/70 backdrop-blur-sm shadow-xl border border-gray-200 rounded-3xl px-4 sm:px-8 md:px-16 py-4 sm:py-8 md:py-12">
         <div className="mb-6">
           <button
@@ -134,7 +151,7 @@ const PhobiaDetailPage = () => {
           Maruz Kalma Terapisini Başlat
         </button>
 
-        <FloatingChatButton />
+        <FloatingChatButton onClick={handleStartChat} disabled={isPending} />
       </section>
     </main>
   );

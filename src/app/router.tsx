@@ -6,6 +6,7 @@ import UserLayout from './layout/user/UserLayout';
 import UserHomePage from '../domains/user/home/pages/HomePage';
 import PhobiasPage from '../domains/user/phobia/pages/PhobiasPage';
 import PhobiaDetailPage from '../domains/user/phobia/pages/PhobiaDetailPage';
+import ChatPage from '../domains/user/chat/pages/ChatPage';
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: 'home', element: <UserHomePage /> },
       { path: 'library', element: <PhobiasPage /> },
       { path: 'library/phobia/:id', element: <PhobiaDetailPage /> },
+      { path: 'chat/:userPhobiaId', element: <ChatPage /> },
     ],
   },
 ]);

@@ -25,6 +25,10 @@ const PhobiasPage = () => {
   const phobias = data?.data.data ?? [];
   const totalPages = data?.data.meta.lastPage ?? 1;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
   const handleSearch = () => {
     setPage(1);
     setSearchQuery(search.trim());
@@ -43,7 +47,7 @@ const PhobiasPage = () => {
   }, [page]);
 
   return (
-    <main className="min-h-screen px-12 py-6 space-y-8" ref={topRef}>
+    <main className="min-h-screen p-12 space-y-8" ref={topRef}>
       <div className="space-y-2">
         <h1 className="text-3xl font-bold text-gray-900">Fobiler</h1>
         <p className="text-gray-600 text-sm">Yalnız değilsin. Bilgi, korkunun panzehiridir 🧠</p>
