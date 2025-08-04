@@ -27,7 +27,11 @@ export const PasswordInput: React.FC<Props> = ({
         icon={<Lock size={18} />}
         type={visible ? 'text' : 'password'}
         rightIcon={
-          <button type="button" onClick={() => setVisible((v) => !v)} className="cursor-pointer">
+          <button
+            type="button"
+            onClick={() => setVisible((v) => !v)}
+            className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+          >
             {visible ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         }

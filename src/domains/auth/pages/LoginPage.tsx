@@ -40,29 +40,39 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 to-gray-100">
       <AuthIntro
         icon={Shield}
         title="Fobi Uygulaması"
         description="Korkularınızla yüzleşin, güvenli bir ortamda iyileşin ve kendinizi keşfedin."
       />
 
-      <div className="flex-1 flex flex-col justify-center px-8 lg:px-24 py-24 bg-white">
-        <div className="max-w-md w-full mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Tekrar Hoş Geldin</h1>
-          <p className="text-gray-500 mb-8">Korkularını yenme yolculuğuna devam et</p>
-          <form className="space-y-5">
-            <LoginForm form={form} />
-          </form>
+      <div className="flex-1 flex flex-col justify-center px-8 lg:px-24 py-24">
+        <div className="max-w-md w-full mx-auto animate-scaleIn">
+          <div className="auth-card rounded-3xl p-8 shadow-2xl border border-white/20">
+            <div className="text-center mb-8 animate-fadeIn">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Tekrar Hoş Geldin</h1>
+              <p className="text-gray-600">Korkularını yenme yolculuğuna devam et</p>
+            </div>
 
-          <Actions isPending={isPending} onSubmit={handleSubmit(onSubmit)} />
+            <form className="space-y-6">
+              <LoginForm form={form} />
+            </form>
 
-          <p className="mt-6 text-center text-gray-600">
-            Hesabın Yok Mu?{' '}
-            <Link to="/register" className="text-black font-medium hover:underline">
-              Hesap Oluştur
-            </Link>
-          </p>
+            <Actions isPending={isPending} onSubmit={handleSubmit(onSubmit)} />
+
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <p className="text-center text-gray-600">
+                Hesabın Yok Mu?{' '}
+                <Link
+                  to="/register"
+                  className="text-indigo-600 font-semibold hover:text-indigo-700 transition-colors duration-200 hover:underline"
+                >
+                  Hesap Oluştur
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -85,42 +85,57 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 to-gray-100">
       <AuthIntro
         icon={Shield}
         title="Fobi Uygulaması"
         description="Korkularınızla yüzleşin, güvenli bir ortamda iyileşin ve kendinizi keşfedin."
       />
 
-      <div className="flex-1 flex flex-col justify-center px-8 lg:px-24 py-24 bg-white">
-        <div className="max-w-md w-full mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Hesap Oluştur</h1>
-          <p className="text-gray-500 mb-8">
-            {step === 1
-              ? 'Yeni bir yolculuğa başlamak için kaydol'
-              : 'Opsiyonel bilgileri doldurabilir veya bu adımı geçebilirsiniz.'}
-          </p>
+      <div className="flex-1 flex flex-col justify-center px-8 lg:px-24 py-12">
+        <div className="max-w-md w-full mx-auto animate-scaleIn">
+          <div className="auth-card rounded-3xl p-6 shadow-2xl border border-white/20">
+            <div className="text-center mb-6 animate-fadeIn">
+              <h1 className="text-2xl font-bold text-gray-900 mb-1">Hesap Oluştur</h1>
+              <p className="text-gray-600 text-sm">
+                {step === 1
+                  ? 'Yeni bir yolculuğa başlamak için kaydol'
+                  : 'Opsiyonel bilgileri doldurabilir veya bu adımı geçebilirsiniz.'}
+              </p>
 
-          <form className="space-y-5">
-            {step === 1 && <StepOneForm form={form} />}
-            {step === 2 && <StepTwoForm form={form} />}
-          </form>
+              {/* Step indicator */}
+              <div className="flex justify-center mt-4 space-x-2">
+                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-indigo-600' : 'bg-gray-300'}`}></div>
+                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-indigo-600' : 'bg-gray-300'}`}></div>
+              </div>
+            </div>
 
-          <Actions
-            step={step}
-            isPending={isPending}
-            onBack={handleBack}
-            onNext={handleNextStep}
-            onSubmit={handleSubmit(onSubmit)}
-            onSkip={handleSkipStep}
-          />
+            <form className="space-y-4">
+              {step === 1 && <StepOneForm form={form} />}
+              {step === 2 && <StepTwoForm form={form} />}
+            </form>
 
-          <p className="mt-6 text-center text-gray-600">
-            Zaten hesabın var mı?{' '}
-            <Link to="/login" className="text-black font-medium hover:underline">
-              Giriş Yap
-            </Link>
-          </p>
+            <Actions
+              step={step}
+              isPending={isPending}
+              onBack={handleBack}
+              onNext={handleNextStep}
+              onSubmit={handleSubmit(onSubmit)}
+              onSkip={handleSkipStep}
+            />
+
+            <div className="mt-6 pt-4 border-t border-gray-200">
+              <p className="text-center text-gray-600 text-sm">
+                Zaten hesabın var mı?{' '}
+                <Link
+                  to="/login"
+                  className="text-indigo-600 font-semibold hover:text-indigo-700 transition-colors duration-200 hover:underline"
+                >
+                  Giriş Yap
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
