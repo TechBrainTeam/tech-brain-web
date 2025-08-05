@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, ArrowLeft } from 'lucide-react';
+import { Button } from '../../../../shared/components/Button/Button';
 
 interface ErrorStateProps {
   error?: Error | null;
@@ -16,16 +17,18 @@ const ErrorState = ({ error }: ErrorStateProps) => {
         </div>
         <h3 className="text-xl font-bold text-gray-900 mb-2">Bir hata oluştu</h3>
         <p className="text-gray-600 mb-6">{error?.message || 'Veri getirilemedi.'}</p>
-        <button
+        <Button
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 hover:shadow-lg"
+          variant="primary"
+          size="md"
+          className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-medium hover:shadow-lg transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4" />
           Geri Dön
-        </button>
+        </Button>
       </div>
     </main>
   );
 };
 
-export default ErrorState; 
+export default ErrorState;

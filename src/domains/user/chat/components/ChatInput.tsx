@@ -1,3 +1,4 @@
+import { Button } from '../../../../shared/components/Button/Button';
 import Icons from '../../../../shared/components/Icons';
 
 interface Props {
@@ -24,14 +25,16 @@ const ChatInput = ({ input, setInput, onSubmit, isPending }: Props) => {
             <Icons.SendIcon className="w-5 h-5 text-gray-400" />
           </div>
         </div>
-        <button
+        <Button
           type="submit"
           disabled={!input.trim() || isPending}
-          className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95 flex items-center space-x-2"
+          variant="primary"
+          size="lg"
+          className="px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 flex items-center space-x-2"
         >
           <span>Gönder</span>
           <Icons.SendIcon />
-        </button>
+        </Button>
       </form>
     </div>
   );

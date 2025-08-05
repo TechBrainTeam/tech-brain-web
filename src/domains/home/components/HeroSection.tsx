@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Play } from 'lucide-react';
+import { Button } from '../../../shared/components/Button/Button';
 
 const HeroSection = () => {
   return (
     <section className="relative overflow-hidden">
-      {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-indigo-200 rounded-full blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-200 rounded-full blur-3xl opacity-20 animate-pulse delay-1000"></div>
@@ -40,13 +40,16 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5" />
             </Link>
 
-            <button className="inline-flex items-center gap-3 bg-white text-gray-700 px-8 py-4 rounded-2xl text-lg font-semibold border-2 border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="inline-flex items-center gap-3 rounded-2xl text-lg font-semibold border-2 border-gray-200 hover:border-indigo-300 hover:shadow-lg px-8 py-4"
+            >
               <Play className="w-5 h-5" />
               Nasıl Çalışır?
-            </button>
+            </Button>
           </div>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-indigo-600 mb-2">10K+</div>
@@ -71,4 +74,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection; 
+export default HeroSection;

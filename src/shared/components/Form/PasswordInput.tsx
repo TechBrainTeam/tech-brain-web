@@ -1,6 +1,7 @@
 import React, { useState, type InputHTMLAttributes } from 'react';
 import { Input } from './Input';
 import { Eye, EyeOff, Lock } from 'lucide-react';
+import { Button } from '../Button/Button';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -27,13 +28,15 @@ export const PasswordInput: React.FC<Props> = ({
         icon={<Lock size={18} />}
         type={visible ? 'text' : 'password'}
         rightIcon={
-          <button
+          <Button
             type="button"
             onClick={() => setVisible((v) => !v)}
-            className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+            variant="ghost"
+            size="sm"
+            className="p-1 rounded-lg hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-50 cursor-pointer"
           >
-            {visible ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
+            {visible ? <Eye size={18} /> : <EyeOff size={18} />}
+          </Button>
         }
         {...register}
         error={error}

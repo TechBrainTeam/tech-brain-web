@@ -54,9 +54,7 @@ const Sidebar = () => {
         <p className="text-gray-700 italic mb-2 leading-snug">
           “Cesaret, korkunun yokluğu değil, korkuya rağmen harekete geçmektir.”
         </p>
-        <button className="text-indigo-600 text-sm font-semibold hover:underline transition">
-          Günlük Motivasyon
-        </button>
+        <p className="text-indigo-600 text-sm font-semibold transition">Günlük Motivasyon</p>
       </div>
     </aside>
   );

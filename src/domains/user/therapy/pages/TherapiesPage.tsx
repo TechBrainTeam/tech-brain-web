@@ -1,36 +1,37 @@
-import { useEffect, useState, useRef } from 'react';
-import { useListPhobias } from '../hooks/useListPhobias';
-import PhobiaSkeletonList from '../components/PhobiaSkeletonList';
-import CategoryFilter from '../components/CategoryFilter';
-import PhobiaList from '../components/PhobiaList';
+import { useEffect, useRef, useState } from 'react';
+import { useListTherapies } from '../hooks/useListTherapies';
 import PaginationControls from '../../../../shared/components/Pagination/PaginationControls';
+import TherapyCard from '../components/TherapyCard';
+import TherapiesSkeletonList from '../components/TherapiesSkeletonList';
+import type { Therapy } from '../model/therapy.types';
 
-const PhobiasPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
+const TherapiesPage = () => {
   const [search, setSearch] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
-
   const topRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading, error } = useListPhobias({
+  const { data, isLoading, isError } = useListTherapies({
     search: searchQuery,
-    categoryId: selectedCategory,
     page,
-    limit: 5,
+    limit: 3,
   });
-
-  const phobias = data?.data.data ?? [];
-  const totalPages = data?.data.meta.lastPage ?? 1;
+  const therapies = data?.data?.therapies ?? [];
+  const totalPages = data?.data?.meta?.lastPage ?? 1;
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
 
   const handleSearch = () => {
     setPage(1);
     setSearchQuery(search.trim());
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleSearch();
   };
 
   const clearSearch = () => {
@@ -39,25 +40,13 @@ const PhobiasPage = () => {
     setPage(1);
   };
 
-  useEffect(() => {
-    if (data?.data?.categories && categories.length === 0) {
-      setCategories(data.data.categories);
-    }
-  }, [data, categories.length]);
-
-  useEffect(() => {
-    if (topRef.current) {
-      topRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [page]);
-
   return (
     <main
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-50"
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50"
       ref={topRef}
     >
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
           <div className="text-center space-y-6">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-100 text-purple-800 text-sm font-medium mb-4">
@@ -68,11 +57,14 @@ const PhobiasPage = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              Fobi Kütüphanesi
+              Bilimsel Terapi Yöntemleri
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">Fobiler</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Yalnız değilsin. Bilgi, korkunun panzehiridir 🧠
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+              Terapiler
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Bilimsel olarak kanıtlanmış terapi yöntemlerini keşfedin ve size en uygun olanını
+              bulun
             </p>
           </div>
         </div>
@@ -80,18 +72,18 @@ const PhobiasPage = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8 mb-8">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-2xl mx-auto">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
               <div className="relative bg-white rounded-2xl shadow-lg border border-gray-100">
                 <div className="flex items-center p-4">
                   <div className="flex-1 relative">
                     <input
                       type="text"
-                      placeholder="Fobinle ilgili bir şeyler ara..."
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Terapi arayın..."
                       className="w-full pl-12 pr-20 py-4 text-lg border-0 focus:outline-none focus:ring-0 bg-transparent placeholder-gray-400"
                     />
                     <svg
@@ -126,7 +118,7 @@ const PhobiasPage = () => {
                     )}
                     <button
                       onClick={handleSearch}
-                      className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 transform cursor-pointer"
+                      className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
                     >
                       Ara
                     </button>
@@ -135,53 +127,45 @@ const PhobiasPage = () => {
               </div>
             </div>
 
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900">Kategoriler</h3>
-              <CategoryFilter
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onSelect={(id) => {
-                  setSelectedCategory(id);
-                  setPage(1);
-                }}
-              />
-            </div>
+            {searchQuery && (
+              <div className="mt-4 flex items-center justify-center">
+                <span className="text-sm text-gray-600">"{searchQuery}" için arama sonuçları</span>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="space-y-8">
           {isLoading && (
             <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8">
-              <PhobiaSkeletonList count={4} />
+              <TherapiesSkeletonList count={4} />
             </div>
           )}
 
-          {!isLoading && !error && phobias.length > 0 && (
+          {!isLoading && !isError && therapies.length > 0 && (
             <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-8">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  {searchQuery || selectedCategory ? 'Arama Sonuçları' : 'Mevcut Fobiler'}
+                  {searchQuery ? 'Arama Sonuçları' : 'Mevcut Terapiler'}
                 </h2>
-                <p className="text-gray-600">{data?.data?.meta.total} fobi bulundu</p>
+                <p className="text-gray-600">{data?.data?.meta?.total} terapi bulundu</p>
               </div>
 
               <div className="grid gap-6">
-                <PhobiaList phobias={phobias} />
+                {therapies.map((therapy: Therapy) => (
+                  <TherapyCard key={therapy.id} therapy={therapy} />
+                ))}
               </div>
 
               {totalPages > 1 && (
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <PaginationControls
-                    page={page}
-                    totalPages={totalPages}
-                    onChange={(p) => setPage(p)}
-                  />
+                  <PaginationControls page={page} totalPages={totalPages} onChange={setPage} />
                 </div>
               )}
             </div>
           )}
 
-          {!isLoading && !error && phobias.length === 0 && (
+          {!isLoading && !isError && therapies.length === 0 && (
             <div className="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 p-12 text-center">
               <div className="max-w-md mx-auto">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
@@ -197,29 +181,26 @@ const PhobiasPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {searchQuery || selectedCategory ? 'Sonuç bulunamadı' : 'Henüz fobi bulunmuyor'}
+                  {searchQuery ? 'Sonuç bulunamadı' : 'Henüz terapi bulunmuyor'}
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  {searchQuery || selectedCategory
-                    ? 'Arama kriterlerinize uygun fobi bulunamadı. Farklı anahtar kelimeler veya kategoriler deneyebilirsiniz.'
-                    : 'Şu anda sistemde fobi bulunmuyor. Daha sonra tekrar kontrol edin.'}
+                  {searchQuery
+                    ? `"${searchQuery}" için arama sonucu bulunamadı. Farklı anahtar kelimeler deneyebilirsiniz.`
+                    : 'Şu anda sistemde terapi bulunmuyor. Daha sonra tekrar kontrol edin.'}
                 </p>
-                {(searchQuery || selectedCategory) && (
+                {searchQuery && (
                   <button
-                    onClick={() => {
-                      clearSearch();
-                      setSelectedCategory('');
-                    }}
-                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 cursor-pointer"
+                    onClick={clearSearch}
+                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-200"
                   >
-                    Tüm Fobileri Göster
+                    Tüm Terapileri Göster
                   </button>
                 )}
               </div>
             </div>
           )}
 
-          {error && (
+          {isError && (
             <div className="bg-red-50 border border-red-200 rounded-3xl p-8 text-center">
               <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
                 <svg
@@ -238,7 +219,7 @@ const PhobiasPage = () => {
               </div>
               <h3 className="text-lg font-semibold text-red-900 mb-2">Bir hata oluştu</h3>
               <p className="text-red-700">
-                Fobiler yüklenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin.
+                Terapiler yüklenirken bir sorun oluştu. Lütfen daha sonra tekrar deneyin.
               </p>
             </div>
           )}
@@ -248,4 +229,4 @@ const PhobiasPage = () => {
   );
 };
 
-export default PhobiasPage;
+export default TherapiesPage;
