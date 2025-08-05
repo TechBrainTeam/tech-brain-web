@@ -7,18 +7,9 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   register: ReturnType<any>;
-  showRequirements?: boolean;
-  value?: string;
 }
 
-export const PasswordInput: React.FC<Props> = ({
-  label = 'Şifre',
-  error,
-  register,
-  showRequirements = false,
-  value = '',
-  ...rest
-}) => {
+export const PasswordInput: React.FC<Props> = ({ label = 'Şifre', error, register, ...rest }) => {
   const [visible, setVisible] = useState(false);
 
   return (

@@ -7,8 +7,8 @@ type Props = {
 
 const PhobiaList = ({ phobias }: Props) => (
   <div className="space-y-5">
-    {phobias.map((phobia, index) => (
-      <PhobiaCard key={phobia.id} phobia={phobia} index={index} />
+    {phobias.map((phobia) => (
+      <PhobiaCard key={phobia.id} phobia={phobia} />
     ))}
   </div>
 );
