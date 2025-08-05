@@ -48,7 +48,6 @@ const StepOneForm: React.FC<Props> = ({ form }) => {
         })}
         error={errors.password?.message}
         value={password}
-        showRequirements
       />
       <PasswordInput
         label="Şifre (Tekrar)"
@@ -57,7 +56,6 @@ const StepOneForm: React.FC<Props> = ({ form }) => {
         })}
         error={errors.confirmPassword?.message}
         value={confirmPassword}
-        showRequirements
       />
     </>
   );
