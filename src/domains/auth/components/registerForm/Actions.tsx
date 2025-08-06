@@ -10,12 +10,13 @@ type Props = {
   onSkip?: () => void;
 };
 
-const Actions: React.FC<Props> = ({ step, isPending, onBack, onNext, onSubmit, onSkip }) => {
+const Actions: React.FC<Props> = ({ step, isPending, onBack, onSkip }) => {
   return (
     <>
       <div className="flex justify-between gap-3 mt-6 mb-3">
         {step > 1 && (
           <Button
+            type="button"
             onClick={onBack}
             disabled={isPending}
             variant="outline"
@@ -29,7 +30,7 @@ const Actions: React.FC<Props> = ({ step, isPending, onBack, onNext, onSubmit, o
 
         {step < 2 ? (
           <Button
-            onClick={onNext}
+            type="submit"
             variant="primary"
             fullWidth
             size="md"
@@ -39,7 +40,7 @@ const Actions: React.FC<Props> = ({ step, isPending, onBack, onNext, onSubmit, o
           </Button>
         ) : (
           <Button
-            onClick={onSubmit}
+            type="submit"
             disabled={isPending}
             loading={isPending}
             fullWidth

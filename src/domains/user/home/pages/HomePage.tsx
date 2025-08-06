@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Heart, ShieldCheck, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WeeklySummary from '../components/WeeklySummary';
+import MoodRecommendationModal from '../components/MoodRecommendationModal';
 
 const moodOptions = [
   { emoji: '😊', label: 'İyi' },
@@ -13,10 +14,17 @@ const moodOptions = [
 
 const HomePage = () => {
   const [selectedMood, setSelectedMood] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
+
+  const handleContinueClick = () => {
+    if (selectedMood !== null) {
+      setShowModal(true);
+    }
+  };
 
   return (
     <main className="min-h-screen p-12 space-y-8">
@@ -41,18 +49,24 @@ const HomePage = () => {
             <button
               key={index}
               onClick={() => setSelectedMood(index)}
-              className={`w-14 h-14 flex items-center justify-center text-3xl rounded-full transition transform hover:scale-110 shadow ${
-                selectedMood === index
-                  ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-white shadow-lg'
-                  : 'bg-white hover:bg-gray-100 text-gray-700'
-              }`}
+              className={`w-14 h-14 flex items-center justify-center text-3xl rounded-full transition transform hover:scale-110 shadow ${selectedMood === index
+                ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-white shadow-lg'
+                : 'bg-white hover:bg-gray-100 text-gray-700'
+                }`}
             >
               {mood.emoji}
             </button>
           ))}
         </div>
 
-        <button className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-3 rounded-xl text-base font-semibold hover:opacity-90 shadow-lg transition cursor-pointer">
+        <button
+          onClick={handleContinueClick}
+          disabled={selectedMood === null}
+          className={`w-full py-3 rounded-xl text-base font-semibold shadow-lg transition cursor-pointer ${selectedMood !== null
+            ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:opacity-90'
+            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+        >
           Seriyi Devam Ettir
         </button>
       </div>
@@ -64,15 +78,15 @@ const HomePage = () => {
             {
               icon: <Heart className="w-5 h-5 text-pink-500" />,
               title: 'Nefes Egzersizi Başlat',
-              link: '/user/library',
+              link: '/user/breath',
               desc: '5 dakikalık sakinlik seansı',
               gradient: 'from-pink-100 to-pink-50',
             },
             {
               icon: <ShieldCheck className="w-5 h-5 text-green-600" />,
-              title: 'Terapi Seansına Devam Et',
-              link: '/user/library',
-              desc: 'Seviye 2 – Toplum Önünde Konuşma',
+              title: 'Terapi Seansı',
+              link: '/user/therapy',
+              desc: 'Terapi seansına devam et',
               gradient: 'from-green-100 to-green-50',
             },
             {
@@ -99,6 +113,12 @@ const HomePage = () => {
 
         <WeeklySummary />
       </div>
+
+      <MoodRecommendationModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        selectedMood={selectedMood!}
+      />
     </main>
   );
 };

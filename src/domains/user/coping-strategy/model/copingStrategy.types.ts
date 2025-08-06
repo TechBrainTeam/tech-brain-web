@@ -6,6 +6,7 @@ export interface CopingStrategyData {
   durationInMinutes: number;
   createdAt: string;
   updatedAt: string;
+  isCompleted: boolean;
 }
 
 export interface TherapyData {
@@ -20,5 +21,18 @@ export interface CopingStrategyListResponse {
   data: {
     therapy: TherapyData;
     strategies: CopingStrategyData[];
+  };
+}
+
+export interface CopingStrategyDetailResponse {
+  success: boolean;
+  data: CopingStrategyData;
+}
+
+export interface CompleteStrategyResponse {
+  success: boolean;
+  data: {
+    completed: boolean;
+    nextStrategyId: string | null;
   };
 }

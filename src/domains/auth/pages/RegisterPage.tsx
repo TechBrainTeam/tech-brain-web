@@ -40,7 +40,10 @@ export const RegisterPage = () => {
   };
 
   const onSubmit = async () => {
-    if (step === 1) return;
+    if (step === 1) {
+      await handleNextStep();
+      return;
+    }
 
     const isValid = await trigger();
     if (!isValid || !validatePasswordsMatch()) return;
@@ -76,7 +79,7 @@ export const RegisterPage = () => {
     registerUser(values, {
       onSuccess: () => {
         showSuccessToast('Kayıt başarılı!');
-        navigate('/loginp');
+        navigate('/login');
       },
       onError: (err) => {
         showErrorToast(err.message || 'Bir hata oluştu');
@@ -103,26 +106,29 @@ export const RegisterPage = () => {
                   : 'Opsiyonel bilgileri doldurabilir veya bu adımı geçebilirsiniz.'}
               </p>
 
-              {/* Step indicator */}
               <div className="flex justify-center mt-4 space-x-2">
-                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-indigo-600' : 'bg-gray-300'}`}></div>
-                <div className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-indigo-600' : 'bg-gray-300'}`}></div>
+                <div
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-indigo-600' : 'bg-gray-300'}`}
+                ></div>
+                <div
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-indigo-600' : 'bg-gray-300'}`}
+                ></div>
               </div>
             </div>
 
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {step === 1 && <StepOneForm form={form} />}
               {step === 2 && <StepTwoForm form={form} />}
-            </form>
 
-            <Actions
-              step={step}
-              isPending={isPending}
-              onBack={handleBack}
-              onNext={handleNextStep}
-              onSubmit={handleSubmit(onSubmit)}
-              onSkip={handleSkipStep}
-            />
+              <Actions
+                step={step}
+                isPending={isPending}
+                onBack={handleBack}
+                onNext={handleNextStep}
+                onSubmit={handleSubmit(onSubmit)}
+                onSkip={handleSkipStep}
+              />
+            </form>
 
             <div className="mt-6 pt-4 border-t border-gray-200">
               <p className="text-center text-gray-600 text-sm">

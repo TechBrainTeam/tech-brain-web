@@ -14,3 +14,17 @@ export const setAuthCookies = (authData: AuthResponse['data']) => {
     sameSite: 'Strict',
   });
 };
+
+export const getToken = (): string | null => {
+  return Cookies.get('token') || null;
+};
+
+export const isAuthenticated = (): boolean => {
+  const token = getToken();
+  return !!token;
+};
+
+export const clearAuthCookies = () => {
+  Cookies.remove('token');
+  Cookies.remove('user');
+};

@@ -50,7 +50,7 @@ const HeroSection = () => {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-3xl font-bold text-indigo-600 mb-2">10K+</div>
               <div className="text-gray-600">Mutlu Kullanıcı</div>
@@ -67,7 +67,7 @@ const HeroSection = () => {
               <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
               <div className="text-gray-600">Destek</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

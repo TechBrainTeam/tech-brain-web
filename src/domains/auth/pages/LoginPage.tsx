@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import type { LoginRequest } from '../model/auth.types';
 import { useLogin } from '../hooks/useLogin';
 import { showErrorToast, showSuccessToast } from '../../../shared/hooks/useToast';
@@ -10,6 +10,7 @@ import Actions from '../components/loginForm/Actions';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const form = useForm<LoginRequest>({
     mode: 'onTouched',
@@ -31,7 +32,9 @@ export const LoginPage = () => {
     loginUser(values, {
       onSuccess: () => {
         showSuccessToast('Giriş başarılı');
-        navigate('/user/home');
+
+        const from = (location.state as { from?: string })?.from || '/user/home';
+        navigate(from, { replace: true });
       },
       onError: (err: any) => {
         showErrorToast(err?.response?.data.message || 'Bir hata oluştu');
@@ -55,11 +58,11 @@ export const LoginPage = () => {
               <p className="text-gray-600">Korkularını yenme yolculuğuna devam et</p>
             </div>
 
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <LoginForm form={form} />
-            </form>
 
-            <Actions isPending={isPending} onSubmit={handleSubmit(onSubmit)} />
+              <Actions isPending={isPending} />
+            </form>
 
             <div className="mt-8 pt-6 border-t border-gray-200">
               <p className="text-center text-gray-600">

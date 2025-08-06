@@ -1,12 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { clearAuthCookies } from '../../../shared/utils/authCookies';
 
 export const useLogout = () => {
   const navigate = useNavigate();
 
   return () => {
-    Cookies.remove('token');
-    Cookies.remove('user');
+    clearAuthCookies();
     navigate('/');
   };
 };

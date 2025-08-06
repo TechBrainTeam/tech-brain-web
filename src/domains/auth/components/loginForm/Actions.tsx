@@ -3,14 +3,13 @@ import { Button } from '../../../../shared/components/Button/Button';
 
 type Props = {
   isPending: boolean;
-  onSubmit: () => void;
 };
 
-const Actions: React.FC<Props> = ({ isPending, onSubmit }) => {
+const Actions: React.FC<Props> = ({ isPending }) => {
   return (
     <div className="flex justify-between gap-3 mt-8 mb-4">
       <Button
-        onClick={onSubmit}
+        type="submit"
         loading={isPending}
         disabled={isPending}
         fullWidth
