@@ -9,6 +9,8 @@ import PhobiaDetailPage from '../domains/user/phobia/pages/PhobiaDetailPage';
 import ChatPage from '../domains/user/chat/pages/ChatPage';
 import CopingStrategiesPage from '../domains/user/coping-strategy/pages/CopingStrategiesPage';
 import TherapiesPage from '../domains/user/therapy/pages/TherapiesPage';
+import BreathingExercises from '../domains/user/breathing-excercise/pages/BreathingExercises';
+import BreathingExerciseDetail from '../domains/user/breathing-excercise/pages/BreathingExerciseDetail';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +35,8 @@ export const router = createBrowserRouter([
       { path: 'chat/:userPhobiaId', element: <ChatPage /> },
       { path: 'therapy/:therapyId', element: <CopingStrategiesPage /> },
       { path: 'therapy', element: <TherapiesPage /> },
+      { path: 'breath', element: <BreathingExercises /> },
+      { path: 'breath/:exerciseId', element: <BreathingExerciseDetail /> },
     ],
   },
 ]);
