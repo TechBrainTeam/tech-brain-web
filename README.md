@@ -1,69 +1,62 @@
-# React + TypeScript + Vite
+# 🌐 Phobia Aid Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Phobia Aid'in web arayüzü, kullanıcıların fobilerini tanımlayabileceği, değerlendirebileceği ve içeriklere ulaşabileceği bir arayüz sunar. Bu frontend uygulaması modern React teknolojileriyle, Vite ile geliştirilmiştir.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧰 Kullanılan Teknolojiler
 
-## Expanding the ESLint configuration
+| Amaç                     | Teknoloji                      |
+| ------------------------ | ------------------------------ |
+| React UI                 | **React**, **TypeScript**      |
+| Styling                  | **TailwindCSS**                |
+| Form yönetimi            | **react-hook-form**            |
+| Bildirim sistemi         | **react-hot-toast**            |
+| Routing                  | **react-router-dom**           |
+| API veri yönetimi        | **@tanstack/react-query**      |
+| Cookie yönetimi          | **js-cookie**                  |
+| Icon seti                | **lucide-react**               |
+| Derleme & Hızlı Başlatma | **Vite**                       |
+| Mimari                   | **Domain Driven Design (DDD)** |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧱 Mimari Yapı (Domain Driven Design)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Bu projede **DDD (Domain Driven Design)** yaklaşımı izlenmiştir. Her domain (özellik alanı), kendi sorumluluklarını taşıyan birimlere ayrılmıştır: `pages`, `components`, `services`, `types`, `hooks`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+src/
+│
+├── domains/
+│   ├── auth/
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── model/
+│
+├── shared/
+│   ├── api/
+│   ├── components/
+│   ├── hooks/
+│   ├── types/
+│   └── utils/
+│
+├── app/
+│   └── layout/
+│   └── App.tsx
+│   └── router.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🧱 Komutlar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+npm install => Proje bağımlılıklarını package.json dosyasına göre yükler. Bu komut, React, TailwindCSS, react-query gibi kütüphaneleri node_modules klasörüne indirir.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+npm run dev => Vite ile projeyi geliştirme modunda başlatır. Değişiklikler anlık olarak yansır (hot reload özelliği ile).
+
+npm run build => Projeyi üretim için optimize eder. dist/ klasöründe statik dosyaları oluşturur. Bu dosyalar bir sunucuya yüklenerek dağıtılabilir hale gelir.
+
+npm run lint => Projedeki TypeScript ve JavaScript dosyalarında ESLint kurallarına göre analiz yapar. Kod standartlarına uymayan yerleri tespit eder.
