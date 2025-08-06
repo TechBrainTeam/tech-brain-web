@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Sparkles, ArrowRight, Play } from 'lucide-react';
-import { Button } from '../../../shared/components/Button/Button';
 
 const HeroSection = () => {
   return (
