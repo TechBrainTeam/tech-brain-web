@@ -40,14 +40,15 @@ const HeroSection = () => {
               <ArrowRight className="w-5 h-5" />
             </Link>
 
-            <Button
-              variant="secondary"
-              size="lg"
-              className="inline-flex items-center gap-3 rounded-2xl text-lg font-semibold border-2 border-gray-200 hover:border-indigo-300 hover:shadow-lg px-8 py-4"
+            <a
+              href="https://www.youtube.com/watch?v=7_82WbUXq0E"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-2xl text-lg font-semibold border-2 border-gray-200 hover:border-indigo-300 hover:shadow-lg px-8 py-4 bg-secondary text-secondary-foreground"
             >
               <Play className="w-5 h-5" />
               Nasıl Çalışır?
-            </Button>
+            </a>
           </div>
 
           {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
